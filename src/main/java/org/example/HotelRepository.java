@@ -12,12 +12,12 @@ public final class HotelRepository {
     List<Hotel> hotelList = new ArrayList<Hotel>();
 
     public HotelRepository() {
-        hotelList.add(new Hotel(0 , "vista lago" ,"hotel Yelloz" , 1 , true));
-        hotelList.add(new Hotel(1 , "vista mare " ,"hotel White" , 50 , false));
-        hotelList.add(new Hotel(1 , "vista Citta " ,"hotel Blue" , 50 , false));
-        hotelList.add(new Hotel(1 , "centro citta " ,"hotel Red" , 50 , true));
-        hotelList.add(new Hotel(1 , "vista mare " ,"hotel Black" , 50 , false));
-        hotelList.add(new Hotel(1 , "vista fiume " ,"hotel Orange" , 50 , true));
+        hotelList.add(new Hotel(1 , "vista lago" ,"Yellow" , 1 , true));
+        hotelList.add(new Hotel(2 , "vista mare " ,"White" , 50 , false));
+        hotelList.add(new Hotel(3 , "vista Citta " ,"Blue" , 700 , false));
+        hotelList.add(new Hotel(4 , "centro citta " ,"Red" , 580 , true));
+        hotelList.add(new Hotel(5 , "vista mare " ,"Black" , 530 , false));
+        hotelList.add(new Hotel(6 , "vista fiume " ,"Orange" , 250 , true));
 
     };
 
@@ -34,23 +34,29 @@ public final class HotelRepository {
         return jsonStr;
     }
 
-
     // most expensive suite in hotel
 
-    // !importanat manca ancora
-    List<Hotel> mostExpSuite(){
-        double expPrice = 0 ;
-        List<Hotel> mostExp = new ArrayList<>();
-        mostExp = hotelList ;
-        //manca ancora fare il piu exp
-        mostExp.sort((o1, o2) -> {
-            if (o1.getPrice()>o2.getPrice())
-                return 1;
-            if (o1.getPrice()<o2.getPrice())
+    Hotel mostExpSuite() {
+        List<Hotel> suiteHotels = new ArrayList<>();
+        for (Hotel hotel : hotelList) {
+            if (hotel.isSuite()) {
+                suiteHotels.add(hotel);
+            }
+        }
+        suiteHotels.sort((o1, o2) -> {
+            if (o1.getPrice() > o2.getPrice()) {
                 return -1;
+            } else if (o1.getPrice() < o2.getPrice()) {
+                return 1;
+            }
             return 0;
         });
-        return  hotelList ;
+
+        if (!suiteHotels.isEmpty()) {
+            return suiteHotels.get(0);
+        }
+
+        return null;
     }
 
     String moreExpSuiteToJson (){
